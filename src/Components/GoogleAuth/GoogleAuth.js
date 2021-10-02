@@ -35,7 +35,6 @@ function GoogleAuth(props) {
           }
         });
     });
-    console.log("useEffect");
   }, [singOut, singIn]);
   return (
     <div>

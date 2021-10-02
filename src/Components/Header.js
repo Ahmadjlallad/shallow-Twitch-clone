@@ -11,6 +11,12 @@ export default function Header() {
         <Link className="item" to="/">
           All Streams
         </Link>
+        <Link className="item" to="/stream/create">
+          create
+        </Link>
+        <Link className="item" to="/stream/show">
+          stream show
+        </Link>
         <GoogleAuth />
       </div>
     </div>
