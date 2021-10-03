@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# NOTE
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+_history object is passed and create from the browserRouter
+_ but in this case the action crater is not part of the browserRouter so
+_we could pass it down the createStream but we have to do it every time we need to change the url in delete and edit
+_ so we can create are history object and don't let the browserRouter created
+[History Doc](https://github.com/remix-run/history/blob/main/docs/getting-started.md)
+in the history component
 
-## Available Scripts
+```js
+import { createBrowserHistory } from "history";
+export default createBrowserHistory();
+```
 
-In the project directory, you can run:
+after that we just pass the history object as props to the router component
 
-### `npm start`
+```js
+<Router history={History}>
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+here one use form useRouteMatch hook to get the prams from the url and more
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```js
+import { useRouteMatch } from "react-router-dom";
+const edit = useRouteMatch("/stream/edit/:id");
+```
 
-### `npm test`
+```js
+/*
+ * NOTE:
+ * using initialValues from redux form to set the initial values of the form
+ * even if the form was written in the component redux form will reserve the props
+ * then pass it to the component and the component will have the props
+ * the props we created also will be reserved in the redux form and then will be passed to the component
+ */
+<StreamForm // * the component wrapped redux form
+  createStreamOrEditStream={props.updateStream}
+  streamId={id}
+  initialValues={{ title: stream.title, description: stream.description }}
+/>
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+NOTE: about PUT request in the server PUT request have to replace the whole object so if we didn't include the id in the body
+we will get an new object but with out the id
+so PATCH request is used to update the object and PUT request is used to replace the object
 
-### `npm run build`
+NOTES: about portals
+create a new div inside the body and pass the children to the portal
+render React element inside the DOM tree without interfering with the rest of the DOM tree
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```js
+const Modal = (props) => {
+  return ReactDOM.createPortal(
+    <div className="ui dimmer modals visible active">
+      <div className="ui standard modal visible active">aaa</div>
+    </div>,
+    document.querySelector("#modal")
+  );
+};
+```

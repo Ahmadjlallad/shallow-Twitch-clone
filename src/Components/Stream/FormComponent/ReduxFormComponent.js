@@ -27,7 +27,8 @@ const validate = (formValues) => {
   }
   return errors;
 };
-const onSubmit = (formValues, createStream) => {
-  createStream(formValues);
+const onSubmit = (formValues, createStreamOrEditStream, id = undefined) => {
+  if (id) createStreamOrEditStream(id, formValues);
+  else createStreamOrEditStream(formValues);
 };
 export { renderInput, validate, onSubmit };
