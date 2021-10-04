@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { fetchStreams, deleteStream } from "../../actions";
 import { connect } from "react-redux";
-
 import { renderStreamCards, renderCreateStream } from "./streamListHelper";
 
 function StreamList({ fetchStreams, streams, currentUserId, isSignedIn }) {
