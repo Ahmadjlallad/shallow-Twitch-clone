@@ -12,16 +12,13 @@ const App = () => {
     <div className="ui container">
       <Router history={History}>
         <Header />
+        {/* Switch is used to render only one route at a time*/}
         <Switch>
           <Route path="/" exact component={StreamList} />
-
           <Route path="/stream/create" component={StreamCreate} />
-
           <Route path="/stream/edit/:id" component={StreamEdit} />
-
           <Route path="/stream/delete/:id" component={StreamDelete} />
-
-          <Route path="/stream/show/:id" component={StreamShow} />
+          <Route path="/stream/:id" component={StreamShow} />
         </Switch>
       </Router>
     </div>

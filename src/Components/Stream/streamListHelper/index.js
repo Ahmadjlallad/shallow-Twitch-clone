@@ -21,7 +21,9 @@ const renderStreamCards = (streams, currentUserId) => {
         {renderDeleteAndEdit(stream, currentUserId)}
         <i className="large middle aligned icon camera" />
         <div className="content">
-          <h3>{stream.title}</h3>
+          <Link to={`/stream/${stream.id}`} className="header">
+            <h3>{stream.title}</h3>
+          </Link>
           <div className="description">{stream.description}</div>
         </div>
       </div>
